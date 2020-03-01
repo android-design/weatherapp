@@ -4,8 +4,8 @@ import java.util.*
 
 data class LocationModel(
     val time: String,
-    val sunRise: String,
-    val sunSet: String,
+    val sunRise: Date,
+    val sunSet: Date,
     val title: String, // Name of the location
     val woeid: Int,
     val lattLong: String,

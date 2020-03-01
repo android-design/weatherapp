@@ -1,12 +1,14 @@
 package com.fedorov.weatherapp.domain.interactor
 
-import com.fedorov.weatherapp.domain.repository.Repository
+import com.fedorov.weatherapp.domain.base.UseCase
+import com.fedorov.weatherapp.domain.repository.RepositoryLocal
 import javax.inject.Inject
 
 class DeleteLocationUseCase @Inject constructor(
-    private val repository: Repository
-) {
-    suspend fun execute(cityId: Int) {
-        return repository.deleteCity(cityId = cityId)
+    private val repositoryLocal: RepositoryLocal
+) : UseCase<Int, Unit> {
+    override suspend fun execute(parameter: Int) {
+        // Delete city from local storage.
+        repositoryLocal.deleteCity(parameter)
     }
 }

@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.fedorov.weatherapp.R
 import com.fedorov.weatherapp.ui.MainActivity
 import com.fedorov.weatherapp.ui.vm.CitiesViewModel
@@ -21,6 +22,7 @@ class Cities : DaggerFragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     private val viewModel by viewModels<CitiesViewModel> { viewModelFactory }
+    private val navController by lazy { findNavController() }
 
     override fun onCreateView(
         inflater: LayoutInflater,

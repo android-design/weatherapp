@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
-    <include layout="@layout/toolbar" />
+<!--    <include layout="@layout/toolbar" />-->
 
     <fragment
         android:id="@+id/host_fragment"

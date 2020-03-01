@@ -2,10 +2,10 @@ package com.fedorov.weatherapp.domain.model
 
 import java.util.*
 
-data class Location(
+data class WeatherLocation(
     val time: String,
-    val sunRise: String,
-    val sunSet: String,
+    val sunRise: Date,
+    val sunSet: Date,
     val title: String, // Name of the location
     val woeid: Int,
     val lattLong: String,

@@ -1,13 +1,30 @@
 package com.fedorov.weatherapp.domain.interactor
 
-import com.fedorov.weatherapp.domain.repository.Repository
-import com.fedorov.weatherapp.domain.model.Location
+import com.fedorov.weatherapp.domain.Result
+import com.fedorov.weatherapp.domain.base.UseCaseWithoutParameter
+import com.fedorov.weatherapp.domain.model.WeatherLocation
+import com.fedorov.weatherapp.domain.repository.RepositoryLocal
+import com.fedorov.weatherapp.domain.repository.RepositoryRemote
 import javax.inject.Inject
 
 class UpdateWeatherUseCase @Inject constructor(
-    private val repository: Repository
-) {
-    suspend fun execute(): List<Location> {
-        return repository.updateAllAndGet()
+    private val repositoryRemote: RepositoryRemote,
+    private val repositoryLocal: RepositoryLocal
+) : UseCaseWithoutParameter<Result<List<WeatherLocation>>> {
+    override suspend fun execute(): Result<List<WeatherLocation>> {
+        return try {
+            // Get locations for update.
+            val data = repositoryLocal.getAllLocations()
+
+            // Update weather from remote and put to local.
+            for (location in data) {
+                repositoryRemote.getWeather(location.woeid)
+                repositoryLocal.updateCityWeather(location)
+            }
+            // Get updated weather from local.
+            Result.Success(repositoryLocal.getAllLocations())
+        } catch (t: Throwable) {
+            Result.Error(message = t.localizedMessage)
+        }
     }
 }

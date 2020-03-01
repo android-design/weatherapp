@@ -8,9 +8,6 @@ import dagger.Module
 import dagger.android.ContributesAndroidInjector
 import dagger.multibindings.IntoMap
 
-/**
- * Dagger module for the AlbumInfoFragment.
- */
 @Module
 abstract class CitiesModule {
 

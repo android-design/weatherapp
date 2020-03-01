@@ -1,6 +1,7 @@
 package com.fedorov.weatherapp.di
 
-import com.fedorov.weatherapp.data.service.Api
+import com.fedorov.weatherapp.data.service.ApiSearchLocations
+import com.fedorov.weatherapp.data.service.ApiWeatherLocations
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
@@ -12,7 +13,7 @@ import java.util.concurrent.TimeUnit
  * Dagger module for connection instances.
  */
 @Module
-class NetModule {
+class RemoteModule {
     @Provides
     fun getOkHttpClient(): OkHttpClient =
         OkHttpClient.Builder() // Increase the timeouts for slow connections(ex. EDGE)
@@ -22,7 +23,7 @@ class NetModule {
             .build()
 
     @Provides
-    fun getRetrofitService(okHttpClient: OkHttpClient): Api {
+    fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
         val baseUrl = "https://www.metaweather.com/"
 
         return Retrofit.Builder()
@@ -30,6 +31,13 @@ class NetModule {
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(Api::class.java)
     }
+
+    @Provides
+    fun getApiSearchLocations(retrofit: Retrofit): ApiSearchLocations =
+        retrofit.create(ApiSearchLocations::class.java)
+
+    @Provides
+    fun getApiWeatherLocations(retrofit: Retrofit): ApiWeatherLocations =
+        retrofit.create(ApiWeatherLocations::class.java)
 }

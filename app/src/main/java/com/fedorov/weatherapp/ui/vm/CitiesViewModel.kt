@@ -2,37 +2,40 @@ package com.fedorov.weatherapp.ui.vm
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import com.fedorov.weatherapp.domain.interactor.AddLocationUseCase
 import com.fedorov.weatherapp.domain.interactor.UpdateWeatherUseCase
-import com.fedorov.weatherapp.domain.model.Location
+import com.fedorov.weatherapp.domain.model.WeatherLocation
 import com.fedorov.weatherapp.ui.base.BaseViewModel
+import com.fedorov.weatherapp.ui.model.CityWeather
+import com.fedorov.weatherapp.utils.toModelView
 import javax.inject.Inject
 
 class CitiesViewModel @Inject constructor(
     private val updateWeatherUseCase: UpdateWeatherUseCase,
     private val addLocationUseCase: AddLocationUseCase
-) :
-    BaseViewModel<List<Location>>() {
+) : BaseViewModel() {
 
-    private val data = MutableLiveData<List<Location>>()
+    private val dataTest = MutableLiveData<List<WeatherLocation>>()
+    private val data = Transformations.map(dataTest) { listData ->
+        listData.map { it.toModelView() }
+    }
     private val isShowProgressBar = MutableLiveData<Boolean>()
-    private val exception =
-        SingleLiveEvent<Exception>()
+    private val exception = SingleLiveEvent<String>()
 
     fun getShowPB(): LiveData<Boolean> = isShowProgressBar
-    fun getException(): LiveData<Exception> = exception
-    fun getData(): LiveData<List<Location>> = data
+    fun getException(): LiveData<String> = exception
+    fun getData(): LiveData<List<CityWeather>?> = data
 
     fun updateWeather() {
-        makeRequest(data, isShowProgressBar, exception) {
+        makeRequest(dataTest, isShowProgressBar, exception) {
             updateWeatherUseCase.execute()
         }
     }
 
     fun addCity(cityId: Int) {
-        makeRequest(data, isShowProgressBar, exception) {
-            addLocationUseCase.execute(cityId = cityId)
-            updateWeatherUseCase.execute()
+        executeInAnotherThread(isShowProgressBar, exception) {
+            addLocationUseCase.execute(parameter = cityId)
         }
     }
 }
