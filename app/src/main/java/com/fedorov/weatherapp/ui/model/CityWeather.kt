@@ -1,9 +1,17 @@
 package com.fedorov.weatherapp.ui.model
 
 data class CityWeather(
-    val name: String,
     val id: Int,
+    val date: String,
+    val imgId: Int,
+    val locationName: String,
+    val temp: String,
+    val weatherStateName: String,
     val lattLong: String,
+    val minTemp: String,
+    val maxTemp: String,
+    val windDirection: String,
+    val windSpeed: String,
     val sunRise: String,
     val sunSet: String,
     val timezone: String,

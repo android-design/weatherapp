@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+    <variable
+        name="cityWeather"
+        type="com.fedorov.weatherapp.ui.model.CityWeather" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+        <ImageView
+            android:id="@+id/current_weather_state_image"
+            android:layout_width="match_parent"
+            android:layout_height="436dp"
+            android:contentDescription="@string/current_weather_picture"
+            android:src="@drawable/c" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/current_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{cityWeather.temp}"
+                android:textSize="40sp"
+                tools:text="10℃" />
+
+            <TextView
+                android:id="@+id/current_temperature_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:text="@{cityWeather.maxTemp}"
+                android:textSize="30sp"
+                tools:text="5℃" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/separator"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/current_temperature_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:textSize="30sp"
+                android:text="@{cityWeather.minTemp}"
+                tools:text="1℃" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="FR, 2 MARCH"
+            android:text="@{cityWeather.date}"/>
+
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="50sp"
+            tools:text="Moscow"
+            android:text="@{cityWeather.locationName}"/>
+
+        <TextView
+            android:id="@+id/weather_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            tools:text="Cloudy"
+            android:text="@{cityWeather.weatherStateName}"/>
+
+        <TextView
+            android:id="@+id/weather_state_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            tools:text="Today - Cloudy. Max temperature 5℃, min 1℃.\n Wind North-Northwest 6 km/h."
+            android:text="@{@string/text_current_weather(cityWeather.weatherStateName, cityWeather.maxTemp, cityWeather.minTemp, cityWeather.windDirection, cityWeather.windSpeed)}"/>
+    </LinearLayout>
+</layout>

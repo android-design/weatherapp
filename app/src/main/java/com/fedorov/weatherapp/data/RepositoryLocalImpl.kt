@@ -9,7 +9,7 @@ import javax.inject.Inject
 
 class RepositoryLocalImpl @Inject constructor(private val dao: DAO) : RepositoryLocal {
 
-    override suspend fun getAllLocations(): List<WeatherLocation> = dao.read().map { it.toDomain() }
+    override suspend fun getAllLocations(): List<WeatherLocation> = dao.getAll().map { it.toDomain() }
 
     override suspend fun addCity(weatherLocation: WeatherLocation) {
         dao.create(weatherLocation.toModel())

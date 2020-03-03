@@ -1,12 +1,17 @@
 package com.fedorov.weatherapp.data.db.model
 
+import androidx.room.ColumnInfo
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.util.*
 
+@Entity
 data class LocationModel(
     val time: String,
     val sunRise: Date,
     val sunSet: Date,
     val title: String, // Name of the location
+    @PrimaryKey
     val woeid: Int,
     val lattLong: String,
     val timezone: String,

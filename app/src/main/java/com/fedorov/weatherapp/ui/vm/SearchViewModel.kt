@@ -5,10 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.fedorov.weatherapp.domain.interactor.AddLocationUseCase
 import com.fedorov.weatherapp.domain.interactor.GetSearchedLocationsUseCase
-import com.fedorov.weatherapp.domain.model.ParentLocation
+import com.fedorov.weatherapp.domain.model.WeatherLocation
 import com.fedorov.weatherapp.ui.base.BaseViewModel
 import com.fedorov.weatherapp.ui.model.WeatherFound
-import com.fedorov.weatherapp.utils.toModelView
+import com.fedorov.weatherapp.utils.toModelViewWeatherFound
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
@@ -16,9 +16,9 @@ class SearchViewModel @Inject constructor(
     private val getSearchedLocationsUseCase: GetSearchedLocationsUseCase
 ) : BaseViewModel() {
 
-    private val dataTest = MutableLiveData<List<ParentLocation>>()
+    private val dataTest = MutableLiveData<List<WeatherLocation>>()
     private val data = Transformations.map(dataTest) { listData ->
-        listData.map { it.toModelView() }
+        listData.map { it.toModelViewWeatherFound() }
     }
     private val isShowProgressBar = MutableLiveData<Boolean>()
     private val exception =
@@ -28,9 +28,9 @@ class SearchViewModel @Inject constructor(
     fun getException(): LiveData<String> = exception
     fun getData(): LiveData<List<WeatherFound>> = data
 
-    fun addCity(cityId: Int) {
+    fun addCity(locationId: Int) {
         executeInAnotherThread(isShowProgressBar, exception) {
-            addLocationUseCase.execute(parameter = cityId)
+            addLocationUseCase.execute(parameter = locationId)
         }
     }
 

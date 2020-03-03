@@ -5,7 +5,7 @@ import com.fedorov.weatherapp.data.db.model.LocationModel
 class DaoImpl : DAO {
     private val db: MutableMap<Int, LocationModel> = HashMap()
 
-    override fun read(): List<LocationModel> =
+    override fun getAll(): List<LocationModel> =
         db.map { it.value }
 
     override fun create(location: LocationModel) {

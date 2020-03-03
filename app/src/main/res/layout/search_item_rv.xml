@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="weatherFound"
+            type="com.fedorov.weatherapp.ui.model.WeatherFound" />
+
+        <variable
+            name="listener"
+            type="com.fedorov.weatherapp.ui.fragment.Search.OnLocationSelectedListener" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:onClick="@{() -> listener.addLocation(weatherFound.woeid)}"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/img_search_weather"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/image_weather"
+            android:scaleType="centerInside"
+            app:errorImage="@{@drawable/uk}"
+            app:id="@{weatherFound.imgId}"
+            tools:srcCompat="@drawable/c" />
+
+        <TextView
+            android:id="@+id/temperature_search_weather"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="@{weatherFound.temperature}"
+            tools:text="+17" />
+
+        <TextView
+            android:id="@+id/location_search_weather"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="center|start"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            tools:text="@{weatherFound.name}" />
+    </LinearLayout>
+</layout>

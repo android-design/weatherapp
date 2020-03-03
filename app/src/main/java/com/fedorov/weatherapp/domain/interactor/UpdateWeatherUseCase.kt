@@ -5,6 +5,8 @@ import com.fedorov.weatherapp.domain.base.UseCaseWithoutParameter
 import com.fedorov.weatherapp.domain.model.WeatherLocation
 import com.fedorov.weatherapp.domain.repository.RepositoryLocal
 import com.fedorov.weatherapp.domain.repository.RepositoryRemote
+import timber.log.Timber
+import java.net.SocketTimeoutException
 import javax.inject.Inject
 
 class UpdateWeatherUseCase @Inject constructor(
@@ -18,10 +20,14 @@ class UpdateWeatherUseCase @Inject constructor(
 
             // Update weather from remote and put to local.
             for (location in data) {
-                repositoryRemote.getWeather(location.woeid)
-                repositoryLocal.updateCityWeather(location)
+                try {
+                    repositoryRemote.getWeather(location.woeid)
+                    repositoryLocal.updateCityWeather(location)
+                } catch (e: SocketTimeoutException) {
+                    Timber.d(e.localizedMessage)
+                }
             }
-            // Get updated weather from local.
+            // Get locations from local.
             Result.Success(repositoryLocal.getAllLocations())
         } catch (t: Throwable) {
             Result.Error(message = t.localizedMessage)

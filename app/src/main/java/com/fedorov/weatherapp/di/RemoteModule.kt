@@ -14,21 +14,13 @@ import java.util.concurrent.TimeUnit
  */
 @Module
 class RemoteModule {
-    @Provides
-    fun getOkHttpClient(): OkHttpClient =
-        OkHttpClient.Builder() // Increase the timeouts for slow connections(ex. EDGE)
-            .connectTimeout(1, TimeUnit.MINUTES)
-            .readTimeout(30, TimeUnit.SECONDS)
-            .writeTimeout(15, TimeUnit.SECONDS)
-            .build()
 
     @Provides
-    fun getRetrofit(okHttpClient: OkHttpClient): Retrofit {
+    fun getRetrofit(): Retrofit {
         val baseUrl = "https://www.metaweather.com/"
 
         return Retrofit.Builder()
             .baseUrl(baseUrl)
-            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

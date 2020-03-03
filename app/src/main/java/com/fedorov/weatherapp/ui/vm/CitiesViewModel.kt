@@ -8,7 +8,7 @@ import com.fedorov.weatherapp.domain.interactor.UpdateWeatherUseCase
 import com.fedorov.weatherapp.domain.model.WeatherLocation
 import com.fedorov.weatherapp.ui.base.BaseViewModel
 import com.fedorov.weatherapp.ui.model.CityWeather
-import com.fedorov.weatherapp.utils.toModelView
+import com.fedorov.weatherapp.utils.toModelViewCityWeather
 import javax.inject.Inject
 
 class CitiesViewModel @Inject constructor(
@@ -18,14 +18,14 @@ class CitiesViewModel @Inject constructor(
 
     private val dataTest = MutableLiveData<List<WeatherLocation>>()
     private val data = Transformations.map(dataTest) { listData ->
-        listData.map { it.toModelView() }
+        listData.map { it.toModelViewCityWeather() }
     }
     private val isShowProgressBar = MutableLiveData<Boolean>()
     private val exception = SingleLiveEvent<String>()
 
     fun getShowPB(): LiveData<Boolean> = isShowProgressBar
     fun getException(): LiveData<String> = exception
-    fun getData(): LiveData<List<CityWeather>?> = data
+    fun getData(): LiveData<List<CityWeather>> = data
 
     fun updateWeather() {
         makeRequest(dataTest, isShowProgressBar, exception) {

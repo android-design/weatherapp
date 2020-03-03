@@ -2,4 +2,10 @@
     <string name="app_name">WeatherApp</string>
     <string name="refresh">Refresh</string>
     <string name="hint_search_album">Search</string>
+    <string name="image_weather">Image weather</string>
+    <string name="current_weather_picture">Current weather picture</string>
+    <string name="separator">/</string>
+    <string name="locations_not_found">Nothing was found!</string>
+    <string name="city_was_added">The city was added</string>
+    <string name="text_current_weather">Today - %1$s. Max temperature %2$s, min %3$s.\nWind %4$s %5$s.</string>
 </resources>
