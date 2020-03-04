@@ -6,6 +6,7 @@
     <dimen name="search_item_temperature_width">50dp</dimen>
     <dimen name="search_item_location_text_size">20sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+    <!--  City item rv default  -->
     <dimen name="city_item_rv_padding">20dp</dimen>
     <dimen name="city_item_image_height">436dp</dimen>
     <dimen name="city_item_current_temperature_text_size">40sp</dimen>
@@ -14,4 +15,10 @@
     <dimen name="city_item_city_text_size">50sp</dimen>
     <dimen name="city_item_weather_state_text_size">20sp</dimen>
     <dimen name="toolbar_layout_margin">10dp</dimen>
+    <!--  City item rv landscape  -->
+    <dimen name="city_item_rv_weather_state_description_text_size_land">10sp</dimen>
+    <dimen name="city_item_rv_weather_state_text_size_land">20sp</dimen>
+    <dimen name="city_item_rv_city_text_size_land">25sp</dimen>
+    <dimen name="city_item_rv_weather_image_width_land">200dp</dimen>
+    <dimen name="city_item_rv_weather_image_height_land">200dp</dimen>
 </resources>

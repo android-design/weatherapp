@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="cityWeather"
+            type="com.fedorov.weatherapp.ui.model.CityWeather" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/city_item_rv_padding">
+
+        <ImageView
+            android:id="@+id/current_weather_state_image"
+            android:layout_width="@dimen/city_item_rv_weather_image_width_land"
+            android:layout_height="@dimen/city_item_rv_weather_image_height_land"
+            android:layout_gravity="center_horizontal"
+            android:contentDescription="@string/current_weather_picture"
+            app:errorImage="@{@drawable/uk}"
+            app:id="@{cityWeather.imgId}" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/current_temperature"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@{cityWeather.temp}"
+                android:textSize="@dimen/city_item_current_temperature_text_size"
+                tools:text="10℃" />
+
+            <TextView
+                android:id="@+id/current_temperature_max"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end"
+                android:text="@{cityWeather.maxTemp}"
+                android:textSize="@dimen/city_item_temperature_max_text_size"
+                tools:text="5℃" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/separator"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/current_temperature_min"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="10"
+                android:text="@{cityWeather.minTemp}"
+                android:textSize="@dimen/city_item_min_temperature_text_size"
+                tools:text="1℃" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{cityWeather.date}"
+            tools:text="FR, 2 MARCH" />
+
+        <TextView
+            android:id="@+id/city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{cityWeather.locationName}"
+            android:textSize="@dimen/city_item_rv_city_text_size_land"
+            tools:text="Moscow" />
+
+        <TextView
+            android:id="@+id/weather_state"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{cityWeather.weatherStateName}"
+            android:textSize="@dimen/city_item_rv_weather_state_text_size_land"
+            tools:text="Cloudy" />
+
+        <TextView
+            android:id="@+id/weather_state_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lines="2"
+            android:text="@{@string/text_current_weather(cityWeather.weatherStateName, cityWeather.maxTemp, cityWeather.minTemp, cityWeather.windDirection, cityWeather.windSpeed)}"
+            android:textSize="@dimen/city_item_rv_weather_state_description_text_size_land"
+            tools:text="Today - Cloudy. Max temperature 5℃, min 1℃.\n Wind North-Northwest 6 km/h." />
+    </LinearLayout>
+</layout>
