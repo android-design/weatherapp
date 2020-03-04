@@ -12,14 +12,15 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.fedorov.weatherapp.R
 import com.fedorov.weatherapp.ui.adapter.SearchWeatherAdapter
 import com.fedorov.weatherapp.ui.vm.SearchViewModel
+import com.fedorov.weatherapp.utils.DiffUtilsCallback
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_search.*
-import kotlinx.android.synthetic.main.progressbar_main.*
 import kotlinx.android.synthetic.main.toolbar.*
 import javax.inject.Inject
 
@@ -63,9 +64,17 @@ class Search : DaggerFragment() {
                     Toast.LENGTH_SHORT
                 ).show()
 
-                mAdapter.data = data
+                val diffUtilCallback =
+                    DiffUtilsCallback(mAdapter.data, it)
+
+                val diffResult = DiffUtil.calculateDiff(diffUtilCallback)
+
+                mAdapter.data = it
+                diffResult.dispatchUpdatesTo(mAdapter)
             }
         })
+
+        swipe_refresh_search.isEnabled = false
     }
 
     private fun initRecyclerView() {
@@ -97,11 +106,6 @@ class Search : DaggerFragment() {
     }
 
     private fun showProgressBar(show: Boolean) {
-        progressBarGroup?.let {
-            when (show) {
-                true -> it.visibility = View.VISIBLE
-                else -> it.visibility = View.INVISIBLE
-            }
-        }
+        swipe_refresh_search.isRefreshing = show
     }
 }

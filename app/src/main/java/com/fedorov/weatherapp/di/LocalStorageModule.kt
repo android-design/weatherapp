@@ -3,7 +3,6 @@ package com.fedorov.weatherapp.di
 import android.content.Context
 import androidx.room.Room
 import com.fedorov.weatherapp.data.db.DAO
-import com.fedorov.weatherapp.data.db.DaoImpl
 import com.fedorov.weatherapp.data.db.DatabaseRoom
 import dagger.Module
 import dagger.Provides
@@ -23,5 +22,5 @@ class LocalStorageModule {
     }
 
     @Provides
-    fun getLocalStorage(): DAO = DaoImpl()
+    fun getLocalStorage(database: DatabaseRoom): DAO = database.dao()
 }

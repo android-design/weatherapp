@@ -10,7 +10,7 @@ import timber.log.Timber.DebugTree
 class App : DaggerApplication() {
 
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.create(this)
+        return DaggerAppComponent.factory().create(applicationContext)
     }
 
     override fun onCreate() {

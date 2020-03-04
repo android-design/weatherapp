@@ -8,7 +8,7 @@ import com.fedorov.weatherapp.domain.interactor.UpdateWeatherUseCase
 import com.fedorov.weatherapp.domain.model.WeatherLocation
 import com.fedorov.weatherapp.ui.base.BaseViewModel
 import com.fedorov.weatherapp.ui.model.CityWeather
-import com.fedorov.weatherapp.utils.toModelViewCityWeather
+import com.fedorov.weatherapp.ui.mapper.toModelViewCityWeather
 import javax.inject.Inject
 
 class CitiesViewModel @Inject constructor(

@@ -7,6 +7,7 @@ import com.fedorov.weatherapp.domain.repository.RepositoryLocal
 import com.fedorov.weatherapp.domain.repository.RepositoryRemote
 import timber.log.Timber
 import java.net.SocketTimeoutException
+import java.net.UnknownHostException
 import javax.inject.Inject
 
 class UpdateWeatherUseCase @Inject constructor(
@@ -20,17 +21,16 @@ class UpdateWeatherUseCase @Inject constructor(
 
             // Update weather from remote and put to local.
             for (location in data) {
-                try {
-                    repositoryRemote.getWeather(location.woeid)
-                    repositoryLocal.updateCityWeather(location)
-                } catch (e: SocketTimeoutException) {
-                    Timber.d(e.localizedMessage)
-                }
+                repositoryRemote.getWeather(location.woeid)
+                repositoryLocal.updateCityWeather(location)
             }
             // Get locations from local.
             Result.Success(repositoryLocal.getAllLocations())
         } catch (t: Throwable) {
-            Result.Error(message = t.localizedMessage)
+            when (t) {
+                is SocketTimeoutException, is UnknownHostException -> Result.Success(repositoryLocal.getAllLocations())
+                else -> Result.Error(message = t.localizedMessage)
+            }
         }
     }
 }

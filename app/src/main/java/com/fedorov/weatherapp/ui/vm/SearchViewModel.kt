@@ -8,7 +8,7 @@ import com.fedorov.weatherapp.domain.interactor.GetSearchedLocationsUseCase
 import com.fedorov.weatherapp.domain.model.WeatherLocation
 import com.fedorov.weatherapp.ui.base.BaseViewModel
 import com.fedorov.weatherapp.ui.model.WeatherFound
-import com.fedorov.weatherapp.utils.toModelViewWeatherFound
+import com.fedorov.weatherapp.ui.mapper.toModelViewWeatherFound
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(

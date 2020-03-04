@@ -10,11 +10,17 @@
 
         <include layout="@layout/toolbar" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_search_items"
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh_search"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search_items"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
     </LinearLayout>
 
-    <include layout="@layout/progressbar_main" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

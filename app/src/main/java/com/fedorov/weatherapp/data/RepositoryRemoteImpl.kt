@@ -1,6 +1,6 @@
 package com.fedorov.weatherapp.data
 
-import com.fedorov.weatherapp.utils.toDomain
+import com.fedorov.weatherapp.data.converter.toDomain
 import com.fedorov.weatherapp.data.service.ApiSearchLocations
 import com.fedorov.weatherapp.data.service.ApiWeatherLocations
 import com.fedorov.weatherapp.domain.model.ParentLocation

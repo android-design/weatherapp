@@ -8,15 +8,17 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.PagerSnapHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.fedorov.weatherapp.R
 import com.fedorov.weatherapp.ui.adapter.WeatherAdapter
+import com.fedorov.weatherapp.ui.model.CityWeather
 import com.fedorov.weatherapp.ui.vm.CitiesViewModel
+import com.fedorov.weatherapp.utils.DiffUtilsCallback
 import dagger.android.support.DaggerFragment
 import kotlinx.android.synthetic.main.fragment_cities.*
-import kotlinx.android.synthetic.main.progressbar_main.*
 import javax.inject.Inject
 
 
@@ -41,14 +43,11 @@ class Cities : DaggerFragment() {
         super.onResume()
         viewModel.updateWeather()
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         initRecyclerView()
-
-        get_weather.setOnClickListener {
-            viewModel.updateWeather()
-        }
 
         viewModel.getShowPB().observe(viewLifecycleOwner, Observer { show ->
             showProgressBar(show)
@@ -56,7 +55,13 @@ class Cities : DaggerFragment() {
 
         viewModel.getData().observe(viewLifecycleOwner, Observer { data ->
             data?.let {
-                mAdapter.data = data
+                val diffUtilCallback =
+                    DiffUtilsCallback(mAdapter.data, it)
+
+                val diffResult = DiffUtil.calculateDiff(diffUtilCallback)
+
+                mAdapter.data = it
+                diffResult.dispatchUpdatesTo(mAdapter)
             }
         })
 
@@ -64,6 +69,12 @@ class Cities : DaggerFragment() {
             val directions = CitiesDirections.actionCitiesFragmentToPreferenceFragment()
             navController.navigate(directions)
         }
+
+        swipe_refresh_weather.setOnRefreshListener {
+            viewModel.updateWeather()
+
+        }
+
     }
 
     private fun initRecyclerView() {
@@ -77,11 +88,6 @@ class Cities : DaggerFragment() {
     }
 
     private fun showProgressBar(show: Boolean) {
-        progressBarGroup?.let {
-            when (show) {
-                true -> it.visibility = View.VISIBLE
-                else -> it.visibility = View.INVISIBLE
-            }
-        }
+        swipe_refresh_weather.isRefreshing = show
     }
 }

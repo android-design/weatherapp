@@ -1,25 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-    <variable
-        name="cityWeather"
-        type="com.fedorov.weatherapp.ui.model.CityWeather" />
+
+        <variable
+            name="cityWeather"
+            type="com.fedorov.weatherapp.ui.model.CityWeather" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="20dp">
+        android:padding="@dimen/city_item_rv_padding">
 
         <ImageView
             android:id="@+id/current_weather_state_image"
             android:layout_width="match_parent"
-            android:layout_height="436dp"
+            android:layout_height="@dimen/city_item_image_height"
             android:contentDescription="@string/current_weather_picture"
-            android:src="@drawable/c" />
+            app:errorImage="@{@drawable/uk}"
+            app:id="@{cityWeather.imgId}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -32,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@{cityWeather.temp}"
-                android:textSize="40sp"
+                android:textSize="@dimen/city_item_current_temperature_text_size"
                 tools:text="10℃" />
 
             <TextView
@@ -42,7 +45,7 @@
                 android:layout_weight="1"
                 android:gravity="center_vertical|end"
                 android:text="@{cityWeather.maxTemp}"
-                android:textSize="30sp"
+                android:textSize="@dimen/city_item_temperature_max_text_size"
                 tools:text="5℃" />
 
             <TextView
@@ -56,8 +59,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="10"
-                android:textSize="30sp"
                 android:text="@{cityWeather.minTemp}"
+                android:textSize="@dimen/city_item_min_temperature_text_size"
                 tools:text="1℃" />
         </LinearLayout>
 
@@ -65,31 +68,31 @@
             android:id="@+id/date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="FR, 2 MARCH"
-            android:text="@{cityWeather.date}"/>
+            android:text="@{cityWeather.date}"
+            tools:text="FR, 2 MARCH" />
 
         <TextView
             android:id="@+id/city"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="50sp"
-            tools:text="Moscow"
-            android:text="@{cityWeather.locationName}"/>
+            android:text="@{cityWeather.locationName}"
+            android:textSize="@dimen/city_item_city_text_size"
+            tools:text="Moscow" />
 
         <TextView
             android:id="@+id/weather_state"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="20sp"
-            tools:text="Cloudy"
-            android:text="@{cityWeather.weatherStateName}"/>
+            android:text="@{cityWeather.weatherStateName}"
+            android:textSize="@dimen/city_item_weather_state_text_size"
+            tools:text="Cloudy" />
 
         <TextView
             android:id="@+id/weather_state_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:lines="2"
-            tools:text="Today - Cloudy. Max temperature 5℃, min 1℃.\n Wind North-Northwest 6 km/h."
-            android:text="@{@string/text_current_weather(cityWeather.weatherStateName, cityWeather.maxTemp, cityWeather.minTemp, cityWeather.windDirection, cityWeather.windSpeed)}"/>
+            android:text="@{@string/text_current_weather(cityWeather.weatherStateName, cityWeather.maxTemp, cityWeather.minTemp, cityWeather.windDirection, cityWeather.windSpeed)}"
+            tools:text="Today - Cloudy. Max temperature 5℃, min 1℃.\n Wind North-Northwest 6 km/h." />
     </LinearLayout>
 </layout>

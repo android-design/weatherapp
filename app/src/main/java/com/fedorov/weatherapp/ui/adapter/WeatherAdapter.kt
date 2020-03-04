@@ -13,7 +13,7 @@ class WeatherAdapter : RecyclerView.Adapter<WeatherAdapter.ViewHolder>() {
         set(value) {
             _data.clear()
             _data.addAll(value)
-            notifyDataSetChanged()
+            //notifyDataSetChanged()
         }
         get() = _data
 

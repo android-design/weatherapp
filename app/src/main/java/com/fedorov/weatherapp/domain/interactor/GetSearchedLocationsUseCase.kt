@@ -16,7 +16,6 @@ class GetSearchedLocationsUseCase @Inject constructor(
         val newData = data.map {
             repositoryRemote.getWeather(it.woeid)
         }
-
         // Get result from remote by query.
         Result.Success(newData)
     } catch (t: Throwable) {
